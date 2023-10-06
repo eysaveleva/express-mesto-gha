@@ -49,25 +49,29 @@ module.exports.deleteCard = (req, res) => {
 };
 
 const updateLikes = (req, res, newData) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    newData,
-    { new: true },
-  )
-    .orFail((err) => {
-      res.status(404).send({ message: err.message });
-    })
-    .populate(['owner', 'likes'])
-    .then((card) => {
-      res.send({ data: card });
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: err.message });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
-      }
-    });
+  if (req.params.cardId.length === 24) {
+    Card.findByIdAndUpdate(
+      req.params.cardId,
+      newData,
+      { new: true },
+    )
+      .orFail((err) => {
+        res.status(404).send({ message: err.message });
+      })
+      .populate(['owner', 'likes'])
+      .then((card) => {
+        res.send({ data: card });
+      })
+      .catch((err) => {
+        if (err.name === 'ValidationError') {
+          res.status(400).send({ message: err.message });
+        } else {
+          res.status(500).send({ message: 'На сервере произошла ошибка' });
+        }
+      });
+  } else {
+    res.status(400).send({ message: 'Некорректный _id карточки' });
+  }
 };
 
 module.exports.likeCard = (req, res) => {
