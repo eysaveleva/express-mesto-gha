@@ -55,11 +55,12 @@ const updateLikes = (req, res, newData) => {
       newData,
       { new: true },
     )
-      .orFail((err) => {
-        res.status(404).send({ message: err.message });
-      })
       .populate(['owner', 'likes'])
       .then((card) => {
+        if (!card) {
+          res.status(404).send({ message: 'Карточка с указанным _id не найдена' });
+          return;
+        }
         res.send({ data: card });
       })
       .catch((err) => {
