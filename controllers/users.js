@@ -6,27 +6,11 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-/* module.exports.getUserById = (req, res) => {
-  if (req.params.userId.length === 24) {
-    User.findById(req.params.userId)
-      .then((user) => {
-        if (!user) {
-          res.status(404).send({ message: 'Пользователь не найден' });
-          return;
-        }
-        res.send(user);
-      })
-      .catch(() => res.status(404).send({ message: 'Пользователь не найден' }));
-  } else {
-    res.status(400).send({ message: 'Неверный _id' });
-  }
-}; */
-
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .orFail(() => res.status(404).send({ message: 'Пользователь не найден' }))
     .then((user) => {
-      res.status(201).send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
