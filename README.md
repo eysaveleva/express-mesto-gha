@@ -1,20 +1,15 @@
-# Проект: Место React
-
-### Описание
-
-Проект представляет собой адаптивный сайт - разрабатывался как перенос существующего функционала на React с авторизацией и регистрацией
-
+# Проект Mesto фронтенд + бэкенд
 [ссылка](https://github.com/eysaveleva/express-mesto-gha)
 
+## Директории
 
-## Available Scripts
+`/routes` — папка с файлами роутера  
+`/controllers` — папка с файлами контроллеров пользователя и карточки   
+`/models` — папка с файлами описания схем пользователя и карточки  
+  
+Остальные директории вспомогательные, создаются при необходимости разработчиком
 
-### `npm start`
+## Запуск проекта
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm run start` — запускает сервер   
+`npm run dev` — запускает сервер с hot-reload
