@@ -1,27 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 
 const { ERROR_DEFAULT_CODE } = require('./config/config');
 const NotFoundError = require('./errors/NotFoundError');
 
-const { signinRouter } = require('./routes/signin');
-const { signupRouter } = require('./routes/signup');
+const { addUser, login } = require('./controllers/users');
+const { validateLogin, validateAddUser } = require('./middlewares/validation');
 
 const auth = require('./middlewares/auth');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 const app = express();
+app.use(express.json());
 app.use(helmet());
 
 const { userRouter } = require('./routes/users');
 const { cardRouter } = require('./routes/cards');
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // подключаемся к серверу mongo
 mongoose.connect(DB_URL, {
@@ -30,8 +27,8 @@ mongoose.connect(DB_URL, {
 
 app.use(express.json());
 
-app.use('/signin', signinRouter);
-app.use('/signup', signupRouter);
+app.post('/signin', validateLogin, login);
+app.post('/signup', validateAddUser, addUser);
 
 app.use(auth);
 
