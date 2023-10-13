@@ -33,10 +33,22 @@ module.exports.getUserById = (req, res, next) => {
     });
 };
 
-module.exports.getUserInfo = (req, res, next) => {
+/* module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       res.status(RIGHT_CODE).send(user);
+    })
+    .catch(next);
+}; */
+
+module.exports.getCurrentUser = (req, res, next) => {
+  const userId = req.user._id;
+  User.findById(userId)
+    .orFail(() => {
+      throw new NotFoundError('Пользователь с таким id не найден');
+    })
+    .then((user) => {
+      res.status(RIGHT_CODE).send({ data: user });
     })
     .catch(next);
 };

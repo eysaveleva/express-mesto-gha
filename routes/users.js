@@ -10,12 +10,15 @@ const {
 const {
   getUsers,
   getUserById,
+  getCurrentUser,
   /* addUser, */
   updateProfileInfo,
   updateProfileAvatar,
 } = require('../controllers/users');
 // вернуть всех пользователей
 userRouter.get('/', getUsers);
+// возвращает информацию о текущем пользователе
+userRouter.get('/users/me', getCurrentUser);
 // вернуть пользователя по _id
 userRouter.get('/:userId', validateGetUserById, getUserById);
 /* // добавить пользователя
