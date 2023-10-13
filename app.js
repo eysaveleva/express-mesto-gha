@@ -6,6 +6,10 @@ const { errors } = require('celebrate');
 
 const { ERROR_DEFAULT_CODE } = require('./config/config');
 const NotFoundError = require('./errors/NotFoundError');
+
+const { signinRouter } = require('./routes/signin');
+const { signupRouter } = require('./routes/signup');
+
 const auth = require('./middlewares/auth');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
@@ -15,8 +19,6 @@ app.use(helmet());
 
 const { userRouter } = require('./routes/users');
 const { cardRouter } = require('./routes/cards');
-const { signinRouter } = require('./routes/signin');
-const { signupRouter } = require('./routes/signup');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
