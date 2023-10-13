@@ -72,12 +72,12 @@ const updateLikes = (req, res, next, newData) => {
     });
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   const countLikes = { $addToSet: { likes: req.user._id } };
-  return updateLikes(req, res, countLikes);
+  return updateLikes(req, res, next, countLikes);
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   const countLikes = { $pull: { likes: req.user._id } };
-  return updateLikes(req, res, countLikes);
+  return updateLikes(req, res, next, countLikes);
 };
