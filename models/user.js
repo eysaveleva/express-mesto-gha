@@ -7,21 +7,21 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Поле должно быть заполнено'],
+    /* required: [true, 'Поле должно быть заполнено'], */
     minlength: [2, 'Имя не может быть короче 2 символов'],
     maxlength: [30, 'Имя не может быть длиннее 30 символов'],
     default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
-    required: [true, 'Поле должно быть заполнено'],
+    /* required: [true, 'Поле должно быть заполнено'], */
     minlength: [2, 'Информация о себе не может быть короче 2 символов'],
     maxlength: [30, 'Информация о себе не может быть длиннее 30 символов'],
     default: 'Исследователь',
   },
   avatar: {
     type: String,
-    required: [true, 'Поле должно быть заполнено'],
+    /* required: [true, 'Поле должно быть заполнено'], */
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Некорректный URL',
