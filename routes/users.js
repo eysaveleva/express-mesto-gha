@@ -18,7 +18,7 @@ const {
 // вернуть всех пользователей
 userRouter.get('/', getUsers);
 // возвращает информацию о текущем пользователе
-userRouter.get('/users/me', getCurrentUser);
+userRouter.get('/me', getCurrentUser);
 // вернуть пользователя по _id
 userRouter.get('/:userId', validateGetUserById, getUserById);
 /* // добавить пользователя
